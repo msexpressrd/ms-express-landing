@@ -1,0 +1,14 @@
+node_modules
+.sites-runtime
+.wrangler
+.DS_Store
+.git
+dist
+.next
+outputs
+work
+coverage
+*.pem
+*.tsbuildinfo
+.env*
+README.md
