@@ -46,38 +46,37 @@ function Status({ pending, complete }: { pending: string; complete: string }) {
 
 function Workspace() {
   return (
-    <div
+    <figure
       className="spatial-viewport"
-      role="group"
       aria-label="Interfaz conceptual: una operación fragmentada se organiza en Cliente, Operación, Automatización y Resultado. Sin datos de clientes."
     >
       <div className="spatial-canvas" aria-hidden="true" />
       <div className="spatial-perspective">
         <div className="spatial-assembly">
-          <div className="workspace-shell">
-            <div className="workspace-toolbar">
-              <span className="workspace-brand">
+          <div className="workspace-shell" aria-hidden="true">
+            <header className="workspace-toolbar">
+              <p className="workspace-brand">
                 <LayoutDashboard size={16} />
                 MS / Workspace
-              </span>
-              <span className="workspace-search">
+              </p>
+              <p className="workspace-search">
                 <Search size={13} />
                 Mi operación
-              </span>
-              <span className="workspace-live">Conectado</span>
-            </div>
-            <div className="workspace-sidebar" aria-hidden="true">
+              </p>
+              <p className="workspace-live">Conectado</p>
+            </header>
+            <aside className="workspace-sidebar">
               <LayoutDashboard />
               <UserRound />
               <Workflow />
               <Zap />
               <span />
               <Settings2 />
-            </div>
-            <div className="workspace-overview">
+            </aside>
+            <p className="workspace-overview">
               <span>Tu operación, en un solo lugar.</span>
               <span>Vista conceptual</span>
-            </div>
+            </p>
           </div>
           <svg
             className="workspace-connections"
@@ -110,12 +109,12 @@ function Workspace() {
                   <h2>Cliente</h2>
                   <span className="module-index">01</span>
                 </header>
-                <div className="interface-label">NUEVA SOLICITUD</div>
+                <p className="interface-label">NUEVA SOLICITUD</p>
                 <p className="interface-title">Organizar mi operación</p>
-                <div className="interface-fields">
-                  <span>Necesidad</span>
-                  <span>Software a la medida</span>
-                </div>
+                <dl className="interface-fields">
+                  <dt>Necesidad</dt>
+                  <dd>Software a la medida</dd>
+                </dl>
                 <footer>
                   <Status pending="Por revisar" complete="Solicitud recibida" />
                   <ArrowUpRight size={15} aria-hidden="true" />
@@ -131,18 +130,18 @@ function Workspace() {
                   <h2>Operación</h2>
                   <span className="module-index">02</span>
                 </header>
-                <div className="interface-label">FLUJO DE APROBACIÓN</div>
-                <div className="approval-flow">
-                  <span>Revisar</span>
-                  <ArrowRight />
-                  <span>Aprobar</span>
-                </div>
-                <div className="interface-task">
-                  <span className="task-check">
-                    <Check />
-                  </span>
+                <p className="interface-label">FLUJO DE APROBACIÓN</p>
+                <p className="approval-flow">
+                  <button type="button">Revisar</button>
+                  <ArrowRight aria-hidden="true" />
+                  <button type="button">Aprobar</button>
+                </p>
+                <p className="interface-task">
+                  <button type="button" className="task-check" aria-label="Validar documento">
+                    <Check size={8} aria-hidden="true" />
+                  </button>
                   Validar documento
-                </div>
+                </p>
                 <footer>
                   <Status
                     pending="Tarea pendiente"
@@ -161,20 +160,20 @@ function Workspace() {
                   <h2>Automatización</h2>
                   <span className="module-index">03</span>
                 </header>
-                <div className="interface-label">REGLA DEL PROCESO</div>
-                <div className="automation-rule">
+                <p className="interface-label">REGLA DEL PROCESO</p>
+                <p className="automation-rule">
                   <span>Al aprobar</span>
-                  <ArrowDown />
+                  <ArrowDown aria-hidden="true" />
                   <span>
-                    Notificar al equipo <Bell size={12} />
+                    Notificar al equipo <Bell size={12} aria-hidden="true" />
                   </span>
-                </div>
+                </p>
                 <footer>
                   <Status
                     pending="Acción manual"
                     complete="Flujo automatizado"
                   />
-                  <span className="interface-switch" aria-hidden="true" />
+                  <button type="button" className="interface-switch" aria-label="Activar automatización" />
                 </footer>
               </article>
             </div>
@@ -187,17 +186,17 @@ function Workspace() {
                   <h2>Resultado</h2>
                   <span className="module-index">04</span>
                 </header>
-                <div className="interface-label">ESPACIO DE GESTIÓN</div>
-                <div className="result-row">
-                  <Boxes size={15} />
+                <p className="interface-label">ESPACIO DE GESTIÓN</p>
+                <p className="result-row">
+                  <Boxes size={15} aria-hidden="true" />
                   <span>Inventario</span>
                   <span>En orden</span>
-                </div>
-                <div className="result-row">
-                  <FileText size={15} />
+                </p>
+                <p className="result-row">
+                  <FileText size={15} aria-hidden="true" />
                   <span>Documentos</span>
                   <span>Conectados</span>
-                </div>
+                </p>
                 <footer>
                   <Status
                     pending="Información dispersa"
@@ -227,25 +226,22 @@ function Workspace() {
             <span>Conectar una acción</span>
             <Zap />
           </div>
-          <div
-            className="workspace-flow"
-            aria-label="Cliente, Operación, Automatización, Resultado"
-          >
-            <span>Cliente</span>
-            <ArrowRight />
-            <span>Operación</span>
-            <ArrowRight />
-            <span>Automatización</span>
-            <ArrowRight />
-            <span>Resultado</span>
-          </div>
+          <ol className="workspace-flow" aria-label="Cliente, Operación, Automatización, Resultado">
+            <li>Cliente</li>
+            <li aria-hidden="true"><ArrowRight /></li>
+            <li>Operación</li>
+            <li aria-hidden="true"><ArrowRight /></li>
+            <li>Automatización</li>
+            <li aria-hidden="true"><ArrowRight /></li>
+            <li>Resultado</li>
+          </ol>
         </div>
       </div>
-      <div className="spatial-narrative">
-        <span className="narrative-label">
-          <i />
+      <figcaption className="spatial-narrative">
+        <p className="narrative-label">
+          <i aria-hidden="true" />
           LA OPERACIÓN COBRA FORMA
-        </span>
+        </p>
         <div className="story-messages">
           {messages.map((message, index) => (
             <p
@@ -257,8 +253,8 @@ function Workspace() {
             </p>
           ))}
         </div>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   );
 }
 

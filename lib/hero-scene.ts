@@ -89,25 +89,6 @@ export function createHeroScene(section: HTMLElement): HeroSceneController {
 
     const tilt = gsap.quickTo(assembly, "rotationY", { duration: .7, ease: "power2.out" });
     const lift = gsap.quickTo(assembly, "rotationX", { duration: .7, ease: "power2.out" });
-    const cards = gsap.utils.toArray<HTMLElement>(".spatial-card", section).map(el => ({
-      el,
-      rx: gsap.quickTo(el, "rotationX", { duration: .35, ease: "power2.out" }),
-      ry: gsap.quickTo(el, "rotationY", { duration: .35, ease: "power2.out" }),
-    }));
-    const chips = gsap.utils.toArray<HTMLElement>(".spatial-loose", section).map(el => ({
-      el,
-      rx: gsap.quickTo(el, "rotationX", { duration: .35, ease: "power2.out" }),
-      ry: gsap.quickTo(el, "rotationY", { duration: .35, ease: "power2.out" }),
-    }));
-    const aim = (el: HTMLElement, event: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      const inside = event.clientX >= r.left && event.clientX <= r.right && event.clientY >= r.top && event.clientY <= r.bottom;
-      if (!inside) return null;
-      return {
-        x: gsap.utils.clamp(-1, 1, (event.clientX - r.left) / Math.max(r.width, 1) * 2 - 1),
-        y: gsap.utils.clamp(-1, 1, (event.clientY - r.top) / Math.max(r.height, 1) * 2 - 1),
-      };
-    };
     const pointer = (event: PointerEvent) => {
       if (paused || event.pointerType === "touch") return;
       const rect = visual.getBoundingClientRect();
@@ -115,21 +96,9 @@ export function createHeroScene(section: HTMLElement): HeroSceneController {
         tilt(-8 + gsap.utils.clamp(-1, 1, (event.clientX - rect.left) / rect.width * 2 - 1) * 6);
         lift(2 - gsap.utils.clamp(-1, 1, (event.clientY - rect.top) / rect.height * 2 - 1) * 4);
       }
-      for (const card of cards) {
-        const local = aim(card.el, event);
-        card.ry(local ? local.x * 11 : 0);
-        card.rx(local ? -local.y * 9 : 0);
-      }
-      for (const chip of chips) {
-        const local = aim(chip.el, event);
-        chip.ry(local ? local.x * 8 : 0);
-        chip.rx(local ? -local.y * 6 : 0);
-      }
     };
     const leave = () => {
       if (desktop) { tilt(-8); lift(2); }
-      cards.forEach(card => { card.ry(0); card.rx(0); });
-      chips.forEach(chip => { chip.ry(0); chip.rx(0); });
       section.dataset.hover = "false";
     };
     const hover = (event: PointerEvent) => { section.dataset.hover = String(event.target instanceof Element && Boolean(event.target.closest(".spatial-card, .spatial-loose"))); };
